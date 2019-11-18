@@ -1,0 +1,20 @@
+.edad_integrantes {
+  margin-top: 10px;
+}
+
+.un_integrante {
+  margin: 10px;
+}
+
+.oculto {
+    display: none;
+}
+
+.visible {
+    display: inline;
+    margin: 10px;
+}
+
+input {
+    margin-left: 10px;
+}
