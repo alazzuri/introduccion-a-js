@@ -11,11 +11,15 @@ const $seccionIntegrantes = document.querySelector("#edad_integrantes");
 const $botonCalcular = document.querySelector("#calcular_resultados");
 const $botonResetear = document.querySelector("#resetear");
 const $detalleResultados = document.querySelector("#detalle_calculos");
+const $seccionIngresos = document.querySelector("#ingresos_miembros");
+const $agregarMiembro = document.querySelector("#agregar_miembro");
+const $eliminarMiembro = document.querySelector("#eliminar_miembro");
+let indiceMiembro = 1;
+
 
 $confirmarMiembros.onclick = function () {
 
     const miembrosFamilia = Number(document.querySelector(".family_members").value);
-
     resetearValores();
     crearListaIntegrantes(miembrosFamilia);
 }
@@ -57,14 +61,16 @@ function crearListaIntegrantes(miembrosFamilia) {
 
             crearIntegrante(i);
         }
+
         $botonCalcular.className = "visible";
         $botonResetear.className = "visible";
+        $seccionIngresos.className = "visible";
     }
 }
 
 function crearIntegrante(indice) {
     const $divMiembro = document.createElement("div");
-    $divMiembro.className = "un_integrante";
+    $divMiembro.className = "detalle_integrante";
     const $etiquetaMiembro = document.createElement("label");
     $etiquetaMiembro.textContent = `Edad del integrante # ${indice}`;
     const $edadMiembro = document.createElement("input");
@@ -130,7 +136,45 @@ function resetearValores() {
     $seccionIntegrantes.textContent = "";
     $botonCalcular.className = "oculto";
     $botonResetear.className = "oculto";
+    $seccionIngresos.className = "oculto";
 }
+
+function agregarMiembro(indice) {
+    const $divIngreso = document.createElement("div");
+    $divIngreso.className = "detalle_integrante";
+    $divIngreso.setAttribute(`id`, `integrante${indice}`);
+    const $etiquetaIngreso = document.createElement("label");
+    $etiquetaIngreso.textContent = `Ingreso anual del integrante # ${indice}`;
+    const $ingresoMiembro = document.createElement("input");
+    $ingresoMiembro.type = "number";
+    $divIngreso.appendChild($etiquetaIngreso);
+    $divIngreso.appendChild($ingresoMiembro)
+    $seccionIngresos.appendChild($divIngreso)
+}
+
+
+$agregarMiembro.onclick = function () {
+
+    if (indiceMiembro <= Number(document.querySelector(".family_members").value)) {
+        agregarMiembro(indiceMiembro);
+        return indiceMiembro++
+    } else {
+        return
+    }
+}
+
+function eliminarMiembro(indice) {
+    let idARemover = indice - 1;
+    elementoARemover = document.querySelector(`#integrante${idARemover}`);
+    $seccionIngresos.removeChild(elementoARemover);
+}
+
+$eliminarMiembro.onclick = function () {
+    eliminarMiembro(indiceMiembro);
+    return indiceMiembro--;
+}
+
+
 
 
 
